@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>预测结果 - 猛禽迁徙预测系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .result-header {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .result-header h2 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        
+        .report {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .hourly-data {
+            margin-top: 30px;
+        }
+        
+        .hourly-data h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        
+        .back-button:hover {
+            background-color: #2980b9;
+        }
+        
+        .score-high {
+            background-color: #c8e6c9;
+        }
+        
+        .score-medium {
+            background-color: #fff3e0;
+        }
+        
+        .score-low {
+            background-color: #ffebee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🦅 猛禽迁徙预测结果</h1>
+        
+        <div class="result-header">
+            <h2>{{ result.site }} - {{ result.date }}</h2>
+        </div>
+        
+        <div class="report">
+            {{ result.report }}
+        </div>
+        
+        <div class="hourly-data">
+            <h3>小时预测数据</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>时间</th>
+                        <th>评分</th>
+                        <th>鹰柱概率</th>
+                        <th>LI指数</th>
+                        <th>风向</th>
+                        <th>ΔT</th>
+                        <th>风速</th>
+                        <th>行为预测</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for hour_data in result.results %}
+                    <tr class="{{ 'score-high' if hour_data.score >= 75 else 'score-medium' if hour_data.score >= 50 else 'score-low' }}">
+                        <td>{{ hour_data.hour }}:00</td>
+                        <td>{{ hour_data.score }}</td>
+                        <td>{{ hour_data.kettle_prob }}%</td>
+                        <td>{{ "%.1f"|format(hour_data.li) }}</td>
+                        <td>{{ "%.0f"|format(hour_data.wind_dir) }}°</td>
+                        <td>{{ "%.1f"|format(hour_data.delta_T) }}℃</td>
+                        <td>{{ "%.1f"|format(hour_data.wind_speed) }}kts</td>
+                        <td>{{ hour_data.behavior_pred }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <a href="/" class="back-button">返回首页</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+# 敏感配置文件
+.env
+
+# IDE 配置
+.idea/
+
+# Python 编译缓存
+__pycache__/
+*.pyc
+
+# 缓存数据
+ebird_daily_cache/
+.cache.sqlite
+
+# 虚拟环境
+.venv/
+env/
+
+# 操作系统文件
+Thumbs.db
+.DS_Store
+
+# 日志文件
+*.log
+
+# 临时文件
+*.tmp
+*.temp
+
+# 测试文件
+coverage/
+.pytest_cache/
+
+# 构建文件
+build/
+dist/
+*.egg-info/
