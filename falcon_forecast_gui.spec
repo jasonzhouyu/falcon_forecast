@@ -3,7 +3,6 @@
 block_cipher = None
 
 added_files = [
-    ('app/templates', 'templates'),
     ('raptorcast_v4_guilin.py', '.'),
     ('.env', '.'),
 ]
@@ -15,9 +14,17 @@ hidden_imports = [
     'retry_requests',
     'dotenv',
     'numpy',
+    'requests',
+    'ssl',
+    'urllib3',
+    'json',
+    'datetime',
+    'tkinter',
+    'threading',
+    'webbrowser',
 ]
 
-a = Analysis(['app/app.py'],
+a = Analysis(['app.py'],
              pathex=['.'],
              binaries=[],
              datas=added_files,
@@ -34,12 +41,12 @@ exe = EXE(pyz,
           a.scripts,
           [],
           exclude_binaries=True,
-          name='falcon_forecast',
+          name='FalconForecast',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          console=True,
+          console=False,
           icon=None)
 coll = COLLECT(exe,
                a.binaries,
@@ -48,4 +55,4 @@ coll = COLLECT(exe,
                strip=False,
                upx=True,
                upx_exclude=[],
-               name='falcon_forecast')
+               name='FalconForecast')

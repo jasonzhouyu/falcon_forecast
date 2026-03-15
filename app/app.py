@@ -11,6 +11,89 @@ import numpy as np
 
 app = Flask(__name__)
 
+# 配置模板文件夹路径
+import os
+
+# 获取当前文件的目录
+current_dir = os.path.dirname(os.path.abspath(__file__))
+print(f"当前文件目录: {current_dir}")
+print(f"当前工作目录: {os.getcwd()}")
+
+# 直接设置模板文件夹路径为绝对路径
+# 对于打包后的环境，我们需要考虑不同的可能路径
+
+# 尝试获取可执行文件所在的目录
+if hasattr(sys, 'frozen'):
+    # 打包后的环境
+    exe_dir = os.path.dirname(sys.executable)
+    print(f"可执行文件目录: {exe_dir}")
+    # 尝试多个可能的模板路径
+    template_paths = [
+        os.path.join(exe_dir, 'templates'),
+        os.path.join(exe_dir, 'app', 'templates'),
+        os.path.join(os.path.dirname(exe_dir), 'templates'),
+        os.path.join(os.path.dirname(exe_dir), 'app', 'templates'),
+        # 添加更多可能的路径
+        os.path.join(os.getcwd(), 'templates'),
+        os.path.join(os.getcwd(), 'app', 'templates'),
+    ]
+else:
+    # 源代码环境
+    template_paths = [
+        os.path.join(current_dir, 'templates'),
+        os.path.join(os.getcwd(), 'app', 'templates'),
+        os.path.join(os.getcwd(), 'templates'),
+    ]
+
+# 打印所有可能的路径
+print("尝试的模板路径:")
+for path in template_paths:
+    exists = os.path.exists(path)
+    print(f"  {path} - {'存在' if exists else '不存在'}")
+    if exists:
+        # 检查是否包含index.html
+        index_path = os.path.join(path, 'index.html')
+        if os.path.exists(index_path):
+            print(f"    ✓ 包含index.html")
+        else:
+            print(f"    ✗ 不包含index.html")
+
+# 选择第一个存在的模板路径
+for path in template_paths:
+    if os.path.exists(path) and os.path.exists(os.path.join(path, 'index.html')):
+        app.template_folder = path
+        print(f"\n使用模板路径: {path}")
+        break
+
+# 如果仍然没有找到模板路径，尝试使用当前工作目录
+if not app.template_folder:
+    print("\n未找到模板路径，尝试使用当前工作目录")
+    current_working_dir = os.getcwd()
+    template_paths = [
+        os.path.join(current_working_dir, 'templates'),
+        os.path.join(current_working_dir, 'app', 'templates'),
+    ]
+    for path in template_paths:
+        if os.path.exists(path) and os.path.exists(os.path.join(path, 'index.html')):
+            app.template_folder = path
+            print(f"使用模板路径: {path}")
+            break
+
+# 打印最终配置
+print(f"\n最终模板文件夹路径: {app.template_folder}")
+print(f"模板文件夹是否存在: {os.path.exists(app.template_folder) if app.template_folder else '未设置'}")
+
+# 确保模板文件夹被正确设置
+if not app.template_folder:
+    print("\n错误: 未找到模板文件夹!")
+    # 强制设置为当前工作目录下的templates
+    fallback_path = os.path.join(os.getcwd(), 'templates')
+    app.template_folder = fallback_path
+    print(f"强制使用模板路径: {fallback_path}")
+    print(f"该路径是否存在: {os.path.exists(fallback_path)}")
+    if os.path.exists(fallback_path):
+        print(f"是否包含index.html: {os.path.exists(os.path.join(fallback_path, 'index.html'))}")
+
 @app.route('/')
 def index():
     # 生成未来7天的日期列表

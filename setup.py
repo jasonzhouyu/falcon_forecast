@@ -4,7 +4,7 @@ setup(
     name="falcon_forecast",
     version="1.0.0",
     description="猛禽迁徙预测系统",
-    long_description=open('ReadMe.md').read(),
+    long_description=open('ReadMe.md', encoding='utf-8').read(),
     long_description_content_type="text/markdown",
     author="Jason Zhou",
     author_email="raptor@migration.ai",
