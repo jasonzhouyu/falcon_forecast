@@ -87,12 +87,50 @@ pip list
 
 ### 启动应用
 
+#### 方法1: GUI应用（推荐）
+
+```bash
+# 运行GUI应用
+python app.py
+
+# 或运行测试版本（无外部依赖）
+python test_app.py
+```
+
+#### 方法2: Web应用
+
 ```bash
 # 启动 Web 应用
 python app/app.py
 
 # 应用将运行在 http://127.0.0.1:5001
 ```
+
+### 打包应用
+
+#### 生成可执行文件
+
+```bash
+# 使用PyInstaller打包
+pyinstaller falcon_forecast_gui.spec
+
+# 生成的可执行文件位于 dist/FalconForecast 目录
+```
+
+#### 创建安装程序
+
+1. 下载并安装 [Inno Setup](https://jrsoftware.org/isinfo.php)
+2. 打开 `installer.iss` 文件
+3. 点击 "编译" 菜单，选择 "编译" 选项
+4. 安装程序将生成在 `output` 目录中
+
+### 安装和使用
+
+1. **下载安装程序**：从 `output` 目录获取 `FalconForecastSetup.exe`
+2. **运行安装程序**：按照安装向导完成安装
+3. **启动应用**：从开始菜单或桌面快捷方式启动应用
+4. **配置API**：在"配置管理"选项卡中输入eBird API Key
+5. **执行预测**：在"算法执行"选项卡中选择站点和日期，点击"执行预测"按钮
 
 ## 使用说明
 
