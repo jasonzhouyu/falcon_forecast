@@ -29,7 +29,8 @@ class TLSAdapter(requests.adapters.HTTPAdapter):
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # 加载配置
-env_path = r"C:\Users\zhouy134\PycharmProjects\falcon_forecast\.env"
+_project_root = os.path.dirname(os.path.abspath(__file__))
+env_path = os.path.join(_project_root, '.env')
 if os.path.exists(env_path):
     load_dotenv(env_path)
 
@@ -37,7 +38,7 @@ if os.path.exists(env_path):
 EBIRD_API_KEY = os.getenv("EBIRD_API_KEY", "")
 EBIRD_RADIUS = int(os.getenv("EBIRD_SEARCH_RADIUS", 50))
 EBIRD_BACK_DAYS = int(os.getenv("EBIRD_BACKLOOK_DAYS", 5))
-EBIRD_CACHE_DIR = r"C:\Users\zhouy134\PycharmProjects\falcon_forecast\ebird_daily_cache"
+EBIRD_CACHE_DIR = os.path.join(_project_root, 'ebird_daily_cache')
 
 
 # --- 2. 重构后的 EBirdClient 类 ---
