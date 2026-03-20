@@ -338,9 +338,14 @@ class FalconForecastGUI(QMainWindow):
         layout = QVBoxLayout(central)
         layout.setContentsMargins(16, 16, 16, 16)
 
+        # 设置全局字体（优先使用 Noto Sans CJK 以支持中文）
+        app_font = QFont("Noto Sans CJK SC", 13)
+        app_font.setStyleStrategy(QFont.StyleStrategy.PreferAntialias)
+        QApplication.instance().setFont(app_font)
+
         # 顶部标题
         header = QLabel("Falcon Forecast  猛禽迁徙预测系统")
-        header.setFont(QFont("Arial", 22, QFont.Weight.Bold))
+        header.setFont(QFont("Noto Sans CJK SC", 22, QFont.Weight.Bold))
         header.setStyleSheet("color: #f5c2e7; padding: 8px 0;")
         header.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(header)
@@ -584,13 +589,13 @@ class FalconForecastGUI(QMainWindow):
         layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         title = QLabel("Falcon Forecast")
-        title.setFont(QFont("Arial", 28, QFont.Weight.Bold))
+        title.setFont(QFont("Noto Sans CJK SC", 28, QFont.Weight.Bold))
         title.setStyleSheet("color: #f5c2e7;")
         title.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(title)
 
         subtitle = QLabel("猛禽迁徙预测系统")
-        subtitle.setFont(QFont("Arial", 16))
+        subtitle.setFont(QFont("Noto Sans CJK SC", 16))
         subtitle.setStyleSheet("color: #cdd6f4;")
         subtitle.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(subtitle)
