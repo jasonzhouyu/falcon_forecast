@@ -1,0 +1,7 @@
+# 猛禽迁徙预测系统依赖
+openmeteo-requests>=1.2.0
+requests-cache>=1.2.0
+retry-requests>=2.0.0
+python-dotenv>=1.0.0
+numpy>=1.24.0
+ttkbootstrap>=1.10.1
