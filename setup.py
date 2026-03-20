@@ -22,6 +22,7 @@ setup(
     python_requires='>=3.8',
     install_requires=[
         'Flask>=3.1.0',
+        'PyQt6>=6.5.0',
         'requests>=2.30.0',
         'openmeteo-requests>=1.7.0',
         'requests-cache>=1.3.0',
@@ -31,7 +32,8 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'falcon_forecast=app.app:main',
+            'falcon_forecast=falcon_gui:main',
+            'falcon_forecast_web=app.app:main',
         ],
     },
 )
