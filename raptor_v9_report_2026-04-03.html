@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: 'Microsoft YaHei', Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        h2 { color: #2E7D32; border-bottom: 3px solid #4CAF50; padding-bottom: 10px; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+        th { background-color: #4CAF50; color: white; }
+        .score-high { color: #d32f2f; font-weight: bold; }
+        .score-mid { color: #f57c00; }
+        .score-low { color: #757575; }
+        .best { background-color: #fff3cd; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🦅 猛禽迁徙预测 V9 完整版</h2>
+        <p><strong>日期:</strong> 2026-04-03</p>
+        
+        <table>
+            <tr><th>站点</th><th>评分</th><th>评级</th><th>温度</th><th>风速</th><th>风向</th></tr>
+            <tr class="best">
+                <td><strong>龙泉山</strong></td>
+                <td class="score-high">100</td>
+                <td>⭐⭐⭐⭐⭐ 推荐</td>
+                <td>20°C</td>
+                <td>8 kts</td>
+                <td>248°</td>
+            </tr>
+            <tr>
+                <td><strong>冠头岭</strong></td>
+                <td class="score-high">100</td>
+                <td>⭐⭐⭐⭐⭐ 推荐</td>
+                <td>25°C</td>
+                <td>9 kts</td>
+                <td>246°</td>
+            </tr>
+            <tr>
+                <td><strong>都统岩</strong></td>
+                <td class="score-mid">67</td>
+                <td>⭐⭐ 视情</td>
+                <td>11°C</td>
+                <td>2 kts</td>
+                <td>204°</td>
+            </tr>
+            <tr>
+                <td><strong>尧山电视台</strong></td>
+                <td class="score-low">0</td>
+                <td>❌ 放弃</td>
+                <td>18°C</td>
+                <td>15 kts</td>
+                <td>340°</td>
+            </tr>
+            <tr>
+                <td><strong>九龙山</strong></td>
+                <td class="score-low">0</td>
+                <td>❌ 放弃</td>
+                <td>15°C</td>
+                <td>27 kts</td>
+                <td>153°</td>
+            </tr>
+            <tr>
+                <td><strong>渔洋山</strong></td>
+                <td class="score-low">0</td>
+                <td>❌ 放弃</td>
+                <td>16°C</td>
+                <td>10 kts</td>
+                <td>140°</td>
+            </tr>
+            <tr>
+                <td><strong>南汇东滩</strong></td>
+                <td class="score-low">0</td>
+                <td>❌ 放弃</td>
+                <td>14°C</td>
+                <td>10 kts</td>
+                <td>136°</td>
+            </tr>
+            <tr>
+                <td><strong>崇明东滩</strong></td>
+                <td class="score-low">0</td>
+                <td>❌ 放弃</td>
+                <td>14°C</td>
+                <td>13 kts</td>
+                <td>145°</td>
+            </tr>
+        </table>
+        
+        <h3>📊 评分说明</h3>
+        <ul>
+            <li>⭐⭐⭐⭐⭐ 推荐 (≥88分) - 不可错过的迁徙高峰</li>
+            <li>⭐⭐⭐ 值得 (≥75分) - 动力条件优秀</li>
+            <li>⭐⭐ 视情 (≥60分) - 适合常规观测</li>
+            <li>⭐ 放弃 (≥40分) - 效率可能较低</li>
+            <li>❌ 放弃 (&lt;40分) - 建议不前往</li>
+        </ul>
+        
+        <p><em>数据来源: Open-Meteo 气象预报 | V9 算法: 季节镜像+风速自适应+历史丰度权重+冷锋检测+幼鸟扩散</em></p>
+    </div>
+</body>
+</html>

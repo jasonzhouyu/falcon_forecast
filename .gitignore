@@ -1,0 +1,31 @@
+# Sensitive - API keys & credentials
+.env
+ebird_api.txt
+wind_api_key
+wind_api_key.pub
+subscribers.json
+
+# Python
+__pycache__/
+*.pyc
+
+# Local cache & logs
+.cache.sqlite
+cron.log
+*.bak
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# Build artifacts
+*.zip
+*.exe
+*.spec
+build/
+dist/
+
+# OS
+Thumbs.db
+.DS_Store
