@@ -29,3 +29,7 @@ dist/
 # OS
 Thumbs.db
 .DS_Store
+
+# Generated reports (keep example_report.html only)
+*.html
+!example_report.html
