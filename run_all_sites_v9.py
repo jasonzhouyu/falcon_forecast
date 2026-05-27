@@ -15,15 +15,16 @@ warnings.filterwarnings('ignore')
 
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from dotenv import load_dotenv
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(SCRIPT_DIR, '.env'))
 
-# SMTP 配置
 SMTP_CONFIG = {
-    "host": "smtp.163.com",
-    "port": 465,
-    "user": "jasonzhouyu@163.com",
-    "password": "REDACTED_SEE_DOTENV",
+    "host": os.getenv("SMTP_HOST", "smtp.163.com"),
+    "port": int(os.getenv("SMTP_PORT", "465")),
+    "user": os.getenv("SMTP_USER", ""),
+    "password": os.getenv("SMTP_PASSWORD", ""),
     "from_name": "猛禽预测"
 }
 
