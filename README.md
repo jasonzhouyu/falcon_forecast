@@ -1,46 +1,46 @@
-# Falcon Forecast
+# Falcon Forecast（猛禽预报）
 
-A multi-factor raptor migration scoring system for 8 monitoring sites across China. Combines Open-Meteo weather data, eBird observations, terrain dynamics, and seasonal phenology to produce daily 0-100 migration suitability scores.
+中国 8 个监测点的多因子猛禽迁徙评分系统。综合 Open-Meteo 气象数据、eBird 观察记录、地形动力和季节性物候，每日生成 0-100 分的迁徙适宜度评分。
 
-## How It Works
+## 工作原理
 
-The V9 model calculates an hourly score (0-100) for each site based on:
+V9 模型基于以下因子计算每小时评分（0-100）：
 
-| Factor | Weight | Description |
-|--------|--------|-------------|
-| Wind lift | 15 pts | Speed in optimal 15-45 kts band, site-adaptive thresholds |
-| Ridge orthogonal lift | 15 pts | Wind vector perpendicular to ridge orientation |
-| Thermal dynamics | 10 pts | Lifted Index (LI) from 850/925 hPa layers |
-| Inversion penalty | -5/C | 850-925 hPa temperature delta |
-| Cold front bonus | +20 pts | 24h temp drop >5C + pressure rise |
-| Phenology peak | x0.3-1.6 | Month/decade matrix per site and season |
-| Historical abundance | x1.0-1.85 | Site-specific raptor density weights |
-| eBird multiplier | x0.8-1.2 | Recent observation spatial correction |
-| Juvenile dispersal | +8 pts | Autumn coastal bonus |
+| 因子 | 权重 | 说明 |
+|------|------|------|
+| 风力抬升 | 15 分 | 风速在 15-45 节最佳区间内，站点自适应阈值 |
+| 山脊正交抬升 | 15 分 | 风向矢量垂直于山脊走向的分量 |
+| 热力学 | 10 分 | 基于 850/925 hPa 层的抬升指数（LI） |
+| 逆温惩罚 | -5/°C | 850-925 hPa 温差 |
+| 冷锋加成 | +20 分 | 24 小时降温 >5°C 且气压上升 |
+| 物候峰值 | x0.3-1.6 | 按站点和季节的月度/旬度矩阵 |
+| 历史丰度 | x1.0-1.85 | 站点特异的猛禽密度权重 |
+| eBird 乘数 | x0.8-1.2 | 近期观测的空间修正 |
+| 幼鸟扩散 | +8 分 | 秋季沿海加分 |
 
-**Rating scale:**
-- 88-100: Must-see migration event
-- 75-87: Highly recommended
-- 60-74: Worth visiting
-- 40-59: Moderate conditions
-- 0-39: Poor conditions
+**评级标准：**
+- 88-100：不容错过的迁徙盛况
+- 75-87：强烈推荐
+- 60-74：值得前往
+- 40-59：条件一般
+- 0-39：条件不佳
 
-## Monitoring Sites
+## 监测站点
 
-| Site | Type | Location | Coordinates |
-|------|------|----------|-------------|
-| Du Tong Yan (都统岩) | Inland ridge | Chongzhou, Sichuan | 30.76N, 103.42E |
-| Long Quan Shan (龙泉山) | Inland ridge | Chengdu, Sichuan | 30.56N, 104.31E |
-| Yao Shan TV Tower (尧山电视台) | Karst ridge | Guilin, Guangxi | 25.30N, 110.38E |
-| Guan Tou Ling (冠头岭) | Cape bottleneck | Beihai, Guangxi | 21.45N, 109.05E |
-| Jiu Long Shan (九龙山) | Coastal bottleneck | Pinghu, Zhejiang | 29.50N, 121.50E |
-| Yu Yang Shan (渔洋山) | Lake-shore | Suzhou, Jiangsu | 31.20N, 120.40E |
-| Nanhui Dongtan (南汇东滩) | Coastal corridor | Shanghai | 30.90N, 121.90E |
-| Chongming Dongtan (崇明东滩) | Estuary wetland | Shanghai | 31.50N, 121.90E |
+| 站点 | 类型 | 位置 | 坐标 |
+|------|------|------|------|
+| 都统岩 | 内陆山脊 | 四川崇州 | 30.76°N, 103.42°E |
+| 龙泉山 | 内陆山脊 | 四川成都 | 30.56°N, 104.31°E |
+| 尧山电视台 | 喀斯特山脊 | 广西桂林 | 25.30°N, 110.38°E |
+| 冠头岭 | 海角瓶颈 | 广西北海 | 21.45°N, 109.05°E |
+| 九龙山 | 沿海瓶颈 | 浙江平湖 | 29.50°N, 121.50°E |
+| 渔洋山 | 湖滨 | 江苏苏州 | 31.20°N, 120.40°E |
+| 南汇东滩 | 沿海走廊 | 上海 | 30.90°N, 121.90°E |
+| 崇明东滩 | 河口湿地 | 上海 | 31.50°N, 121.90°E |
 
-## Quick Start
+## 快速开始
 
-### 1. Clone and install dependencies
+### 1. 克隆仓库并安装依赖
 
 ```bash
 git clone https://github.com/jasonzhouyu/falcon_forecast.git
@@ -49,74 +49,79 @@ cd falcon_forecast
 pip install requests numpy openmeteo-requests requests-cache retry-requests python-dotenv matplotlib
 ```
 
-### 2. Configure API key
+### 2. 配置 API Key
 
-Create a `.env` file:
+创建 `.env` 文件：
 
 ```env
-EBIRD_API_KEY=your_key_here
+EBIRD_API_KEY=你的密钥
 ```
 
-Get a free key at [ebird.org/api/keygen](https://ebird.org/api/keygen). The system works without it (eBird multiplier defaults to 1.0), but predictions are more accurate with real observation data.
+在 [ebird.org/api/keygen](https://ebird.org/api/keygen) 免费获取。系统可以在没有 Key 的情况下运行（eBird 乘数默认为 1.0），但接入真实观测数据后预测更准确。
 
-### 3. Run a prediction
+### 3. 运行预测
 
 ```bash
-# Single site, today
+# 单个站点，当天
 python raptor_v9_runner.py
 
-# All 8 sites, generate full HTML report
+# 全部 8 个站点，生成完整 HTML 报告
 python raptor_v9_full_report.py
 
-# All sites batch (console output)
+# 批量运行所有站点（控制台输出）
 python run_all_sites_v9.py
 ```
 
-### 4. Daily automation (optional)
+### 4. 每日自动化（可选）
 
 ```bash
-# Set up cron (6:00 AM Asia/Shanghai)
+# 设置 cron 定时任务（北京时间 6:00）
 0 22 * * * cd /path/to/falcon_forecast && python3 send_raptor_v9_mail.py
 ```
 
-Email delivery requires SMTP config in `send_raptor_v9_mail.py`.
+邮件推送需要在 `send_raptor_v9_mail.py` 中配置 SMTP。
 
-## Project Structure
+## 项目结构
 
 ```
-raptor_v9_runner.py        Core scoring engine (V9 model)
-raptor_v9_full_report.py   HTML report generator with matplotlib charts
-run_all_sites_v9.py        Batch runner for all 8 sites
-send_raptor_v9_mail.py     Email distribution to subscribers
-run_raptor_daily.py        Legacy daily workflow
-daily_raptor_report.py     Simplified daily report
-report_formatter.py        Report formatting utilities
-raptor_species_expanded.py Species-specific parameters (25 raptors)
-google_form_sync.py        Google Forms subscriber management
-daily_task.sh              Cron entry point
-cron-watchdog.sh           Cron health monitor
+raptor_v9_runner.py        核心评分引擎（V9 模型）
+raptor_v9_full_report.py   带 matplotlib 图表的 HTML 报告生成器
+run_all_sites_v9.py        全部 8 站点批量运行
+send_raptor_v9_mail.py     邮件分发至订阅用户
+run_raptor_daily.py        旧版每日工作流
+daily_raptor_report.py     简化每日报告
+report_formatter.py        报告格式化工具
+raptor_species_expanded.py 物种参数（25 种猛禽）
+google_form_sync.py        Google Forms 订阅者管理
+daily_task.sh              Cron 入口脚本
+cron-watchdog.sh           Cron 健康监控
 ```
 
-## Data Sources
+## 数据来源
 
-- **[Open-Meteo](https://open-meteo.com/)** - Free weather API providing wind, temperature, pressure, cloud cover, precipitation at surface + pressure levels (850/925 hPa).
-- **[eBird](https://ebird.org/)** - Recent raptor observations within 50km radius of each site. Requires free API key.
+- **[Open-Meteo](https://open-meteo.com/)** — 免费气象 API，提供风速、温度、气压、云量、降水的地面数据及气压层（850/925 hPa）数据。
+- **[eBird](https://ebird.org/)** — 各站点 50km 半径内的近期猛禽观察记录。需免费 API Key。
 
-## Example Output
+## 示例报告
 
-See [example_report.html](example_report.html) for a full daily report with hourly scores, 7-day trends, and observation strategies for all 8 sites.
+完整日报（含逐小时评分、7 天趋势、各站点观测策略）见 [example_report.html](example_report.html)。
 
-## Migration Seasons
+## 迁徙季节
 
-- **Spring**: March-May (peak: mid-April)
-- **Autumn**: September-November (peak: mid-October)
+- **春季**：3-5 月（峰值：4 月中旬）
+- **秋季**：9-11 月（峰值：10 月中旬）
 
-Outside these windows the model returns low scores regardless of weather.
+超出这些窗口期，无论天气如何，模型均返回低分。
 
-## License
+## 许可证
 
 MIT
 
-## Contributing
+## 参与贡献
 
-Issues and PRs welcome. If you monitor a raptor site in China not listed here, open an issue with coordinates and ridge orientation - adding new sites is straightforward.
+欢迎提交 Issue 和 PR。如果你在中国的猛禽监测点未在列表中，请提交 Issue 并附上坐标和山脊走向——添加新站点非常简单。
+
+## 延伸阅读
+
+- [模型逻辑说明](模型逻辑说明.md)
+- [参考文献](references.md)
